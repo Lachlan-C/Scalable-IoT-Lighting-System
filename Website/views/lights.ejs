@@ -1,0 +1,67 @@
+<html>
+
+<head>
+  <title>IoT Lights</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Smart Light System App</h1>
+    </div>
+    <form action="/getUserLights" method="POST">
+        <input name="UserSearch" id="UserSearch" type="text" placeholder="Enter Username..">
+        <button class="btn btn-success" type="submit">Search</button>
+    </form>
+    <form action="/addlight" method="POST">
+      <input name="UserInput" id="UserInput" type="text" placeholder="Enter Username..">
+      <input name="floor" id="floor" type="text" placeholder="Enter floor number..">
+      <input name="room" id="room" type="text" placeholder="Enter room number..">
+      <input name="id" id="id" type="text" placeholder="Enter light id..">
+      <input name="state" id="state" type="text" placeholder="Enter light state..">
+      <button class="btn btn-success" type="submit">Add Light</button>
+  </form>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">FLOOR</th>
+          <th scope="col">ROOM</th>
+          <th scope="col">ID</th>
+          <th scope="col">STATE</th>
+          <th scope="col">CHANGE STATE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% light.map((i, index)=> { %>
+          <tr>
+            <th scope="row">
+              <%= i.floor %>
+            </th>
+            <td>
+              <%= i.room %>
+            </td>
+            <td>
+              <%= i.id %>
+            </td>
+            <td>
+              <%= i.state %>
+            </td>
+            <td>
+              <form action='<%= /togglelight/ +i.floor+"/"+i.room+"/"+i.id+"/"+i.state %>' method="POST">
+                <button type="submit" class="btn btn">Toggle</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+
+
+      </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+
+
+</html>
